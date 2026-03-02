@@ -141,23 +141,23 @@ export default function Home() {
             .order('display_order', { ascending: true });
 
           if (experiencesError) {
-             // If table doesn't exist or other error, use fallback
-             console.warn('Could not fetch experiences, using fallback data:', experiencesError);
-             setExperiences(fallbackExperiences);
+            // If table doesn't exist or other error, use fallback
+            console.warn('Could not fetch experiences, using fallback data:', experiencesError);
+            setExperiences(fallbackExperiences);
           } else {
-             setExperiences(experiencesData && experiencesData.length > 0 ? experiencesData : fallbackExperiences);
+            setExperiences(experiencesData && experiencesData.length > 0 ? experiencesData : fallbackExperiences);
           }
         } catch (err) {
-            console.warn('Error fetching experiences:', err);
-            setExperiences(fallbackExperiences);
+          console.warn('Error fetching experiences:', err);
+          setExperiences(fallbackExperiences);
         }
 
         const { data: settingsData } = await supabase
-            .from('settings')
-            .select('value')
-            .eq('key', 'contact_email')
-            .single();
-        
+          .from('settings')
+          .select('value')
+          .eq('key', 'contact_email')
+          .single();
+
         if (settingsData) setContactEmail(settingsData.value);
 
       } catch (error) {
@@ -170,17 +170,17 @@ export default function Home() {
     fetchData();
   }, []);
 
-  const filteredProjects = filter === 'all' 
-    ? projects 
+  const filteredProjects = filter === 'all'
+    ? projects
     : projects.filter(p => p.category.toLowerCase().includes(filter.toLowerCase()));
 
   const handleContactSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      if (contactEmail) {
-          alert(`Mensagem seria enviada para: ${contactEmail}\n(Simulação: Backend necessário para envio real de e-mail)`);
-      } else {
-          alert('Mensagem enviada (simulado)!');
-      }
+    e.preventDefault();
+    if (contactEmail) {
+      alert(`Mensagem seria enviada para: ${contactEmail}\n(Simulação: Backend necessário para envio real de e-mail)`);
+    } else {
+      alert('Mensagem enviada (simulado)!');
+    }
   };
 
   return (
@@ -189,16 +189,16 @@ export default function Home() {
 
       <main>
         {/* Floating WhatsApp Button */}
-        <a 
-            href="https://wa.me/5562984077910" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center animate-pulse-green"
-            title="Fale conosco no WhatsApp"
+        <a
+          href="https://wa.me/5562984077910"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center animate-pulse-green"
+          title="Fale conosco no WhatsApp"
         >
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
         </a>
 
         {/* Hero Section */}
@@ -208,7 +208,7 @@ export default function Home() {
           <div className="absolute inset-0 z-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)', backgroundSize: '40px 40px md:50px 50px' }}></div>
 
           <div className="container mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 md:gap-12 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -226,7 +226,7 @@ export default function Home() {
               <p className="text-base md:text-xl text-text-muted mb-4 leading-relaxed max-w-lg mx-auto md:mx-0">
                 Motion & Design | Editor de Vídeo | Desenvolvedor de Soluções Web
               </p>
-              
+
               <div className="flex items-center justify-center md:justify-start gap-2 text-text-muted mb-8">
                 <MapPin size={16} className="text-accent-glow" />
                 <span className="text-xs md:text-sm">Anápolis, Goiás, Brasil</span>
@@ -281,14 +281,14 @@ export default function Home() {
               >
                 {/* Glow effect behind */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-gradient-to-r from-primary/20 to-accent-glow/20 blur-[100px] rounded-full opacity-40 pointer-events-none"></div>
-                
-                <img 
-                  src="/images/me.png" 
-                  alt="Luís de Paula" 
+
+                <img
+                  src="/images/me.png"
+                  alt="Luís de Paula"
                   className="relative z-10 w-full max-w-lg md:max-w-xl object-contain transform translate-y-8"
-                  style={{ 
-                    maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)', 
-                    WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)' 
+                  style={{
+                    maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)'
                   }}
                 />
               </motion.div>
@@ -305,13 +305,13 @@ export default function Home() {
                 <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6 md:mb-8 leading-tight">Transformando ideias em <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50">experiências visuais</span></h2>
                 <div className="space-y-4 md:space-y-6 text-text-muted leading-relaxed text-sm md:text-base">
                   <p>
-                    Transformo ideias em experiências visuais cativantes e funcionais. Sou graduado em Produção de Conteúdo Digital pela Faculdade Estácio e atuo há anos entregando trabalhos de alta qualidade com uma perspectiva criativa e alinhada às tendências do mercado.
+                    Minha trajetória profissional me permitiu atuar em setores diversos, como cooperativas, agronegócio e mercado imobiliário, sempre entregando soluções estratégicas e orientadas a resultados. Tenho experiência sólida como Social Media e Designer em agências, além de uma forte atuação junto à Igreja e Educação Adventista, desenvolvendo projetos de conteúdo, fotografia e design com excelência e propósito.
                   </p>
                   <p>
-                    Minha trajetória me levou a servir setores variados, desde cooperativas ao agronegócio e imobiliárias. Tenho experiência destacada atuando como Social Media e Designer em agências, além de intensa colaboração com a Igreja e Educação Adventista na produção de conteúdo, fotografia e design.
+                    A edição e o motion design são grandes diferenciais no meu trabalho. Utilizo After Effects e Premiere para construir narrativas dinâmicas, modernas e envolventes. Paralelamente, meu interesse por desenvolvimento web me levou a criar projetos completos desde portais e landing pages para agências criativas até sistemas de automação sempre unindo design refinado, usabilidade inteligente e alta performance técnica.
                   </p>
                   <p>
-                    Minha paixão por edição e motion design me permite criar narrativas dinâmicas no After Effects e Premiere, enquanto meu forte interesse por desenvolvimento web me impulsiona a construir projetos paralelos completos, estruturando portais, landing pages para agências criativas e sistemas de automação que unem design impecável e alta performance técnica.
+                    Também aplico Inteligência Artificial de forma estratégica nos meus processos, integrando IA à criação, automação, otimização de fluxos e desenvolvimento de soluções digitais. Isso me permite acelerar entregas, aumentar a eficiência dos projetos e oferecer resultados mais inovadores, competitivos e alinhados às tendências do mercado.
                   </p>
                 </div>
               </motion.div>
@@ -319,7 +319,7 @@ export default function Home() {
 
             {/* Skills Grid */}
             <div className="grid md:grid-cols-3 gap-6">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -328,7 +328,7 @@ export default function Home() {
               >
                 <h3 className="text-xl font-bold mb-4 flex items-center gap-3 text-white">
                   <div className="p-2 bg-accent-glow/10 rounded-lg">
-                    <PenTool className="text-accent-glow w-5 h-5" /> 
+                    <PenTool className="text-accent-glow w-5 h-5" />
                   </div>
                   Design & Prototipagem
                 </h3>
@@ -340,7 +340,7 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -349,7 +349,7 @@ export default function Home() {
               >
                 <h3 className="text-xl font-bold mb-4 flex items-center gap-3 text-white">
                   <div className="p-2 bg-accent-glow/10 rounded-lg">
-                    <Monitor className="text-accent-glow w-5 h-5" /> 
+                    <Monitor className="text-accent-glow w-5 h-5" />
                   </div>
                   Audiovisual & Motion
                 </h3>
@@ -361,7 +361,7 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -370,7 +370,7 @@ export default function Home() {
               >
                 <h3 className="text-xl font-bold mb-4 flex items-center gap-3 text-white">
                   <div className="p-2 bg-accent-glow/10 rounded-lg">
-                    <Code className="text-accent-glow w-5 h-5" /> 
+                    <Code className="text-accent-glow w-5 h-5" />
                   </div>
                   Tecnologia & Web
                 </h3>
@@ -399,7 +399,7 @@ export default function Home() {
                 {services.map((service) => {
                   const IconComponent = iconMap[service.icon] || Laptop;
                   return (
-                    <div 
+                    <div
                       key={service.id}
                       onClick={() => setSelectedService(service)}
                       className="group p-8 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-accent-glow/30 transition-all duration-500 cursor-pointer"
@@ -434,21 +434,21 @@ export default function Home() {
                   {experiences
                     .filter(exp => exp.type === 'experience')
                     .map((exp, i) => (
-                    <motion.div 
-                      key={exp.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1 }}
-                      className="relative pl-8 border-l border-white/10"
-                    >
-                      <div className="absolute left-[-5px] top-0 w-[9px] h-[9px] bg-accent-glow rounded-full"></div>
-                      <span className="text-xs text-accent-glow font-bold uppercase tracking-widest mb-2 block">{exp.period}</span>
-                      <h3 className="text-xl font-bold mb-1">{exp.role}</h3>
-                      <h4 className="text-text-muted text-sm mb-4">{exp.company}</h4>
-                      <p className="text-text-muted text-sm leading-relaxed">{exp.description}</p>
-                    </motion.div>
-                  ))}
+                      <motion.div
+                        key={exp.id}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.1 }}
+                        className="relative pl-8 border-l border-white/10"
+                      >
+                        <div className="absolute left-[-5px] top-0 w-[9px] h-[9px] bg-accent-glow rounded-full"></div>
+                        <span className="text-xs text-accent-glow font-bold uppercase tracking-widest mb-2 block">{exp.period}</span>
+                        <h3 className="text-xl font-bold mb-1">{exp.role}</h3>
+                        <h4 className="text-text-muted text-sm mb-4">{exp.company}</h4>
+                        <p className="text-text-muted text-sm leading-relaxed">{exp.description}</p>
+                      </motion.div>
+                    ))}
                 </div>
               </div>
 
@@ -465,19 +465,19 @@ export default function Home() {
                   {experiences
                     .filter(exp => exp.type === 'education')
                     .map((edu, i) => (
-                    <motion.div 
-                      key={edu.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1 }}
-                      className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-accent-glow/20 transition-all"
-                    >
-                      <span className="text-xs text-accent-glow font-bold mb-2 block">{edu.period}</span>
-                      <h3 className="text-lg font-bold mb-1">{edu.role}</h3>
-                      <p className="text-text-muted text-sm">{edu.company}</p>
-                    </motion.div>
-                  ))}
+                      <motion.div
+                        key={edu.id}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.1 }}
+                        className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-accent-glow/20 transition-all"
+                      >
+                        <span className="text-xs text-accent-glow font-bold mb-2 block">{edu.period}</span>
+                        <h3 className="text-lg font-bold mb-1">{edu.role}</h3>
+                        <p className="text-text-muted text-sm">{edu.company}</p>
+                      </motion.div>
+                    ))}
                 </div>
               </div>
             </div>
@@ -500,8 +500,8 @@ export default function Home() {
                     onClick={() => setFilter(f)}
                     className={clsx(
                       "px-4 py-2 border rounded-full text-xs font-medium transition-all capitalize",
-                      filter === f 
-                        ? "border-accent-glow bg-accent-glow/10 text-white" 
+                      filter === f
+                        ? "border-accent-glow bg-accent-glow/10 text-white"
                         : "border-white/10 text-text-muted hover:border-white/30 hover:text-white"
                     )}
                   >
@@ -520,13 +520,13 @@ export default function Home() {
                 <div className="col-span-full text-center text-text-muted py-10 opacity-50">Nenhum projeto encontrado nesta categoria.</div>
               ) : (
                 filteredProjects.map((project) => (
-                  <div 
+                  <div
                     key={project.id}
                     onClick={() => setSelectedProject(project)}
                     className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer border border-white/5 hover:border-accent-glow/50 transition-all"
                   >
-                    <img 
-                      src={project.project_images?.[0]?.image_url || 'https://placehold.co/800x600?text=Projeto'} 
+                    <img
+                      src={project.project_images?.[0]?.image_url || 'https://placehold.co/800x600?text=Projeto'}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       alt={project.title}
                     />
@@ -545,18 +545,18 @@ export default function Home() {
             </div>
 
             <div className="mt-12 flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
-              <a 
-                href="https://www.behance.net/luisfearaujo4" 
-                target="_blank" 
+              <a
+                href="https://www.behance.net/luisfearaujo4"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex w-full sm:w-auto items-center justify-center gap-2 px-8 py-4 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition-all"
               >
                 Ver Perfil Completo no Behance
                 <ExternalLink size={18} />
               </a>
-              <a 
-                href="https://drive.google.com/drive/folders/1R2hUVr6RN2x_RJPCbjgmFyeJBJBAEupi" 
-                target="_blank" 
+              <a
+                href="https://drive.google.com/drive/folders/1R2hUVr6RN2x_RJPCbjgmFyeJBJBAEupi"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex w-full sm:w-auto items-center justify-center gap-2 px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-bold hover:bg-white/5 transition-all"
               >
